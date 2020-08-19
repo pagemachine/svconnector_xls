@@ -1,0 +1,28 @@
+{
+  "name": "pagemachine/svconnector-xls",
+  "description": "Connector service for reading a XLS(X) file",
+  "type": "typo3-cms-extension",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Mathias Brodala",
+      "email": "mbrodala@pagemachine.de"
+    }
+  ],
+  "require": {
+    "php": "^7.2",
+    "cobweb/svconnector": "^3.4",
+    "phpoffice/phpspreadsheet": "^1.14",
+    "typo3/cms-core": "^8.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pagemachine\\SvconnectorXls\\": "Classes"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Pagemachine\\SvconnectorXls\\Tests\\": "Tests"
+    }
+  }
+}
