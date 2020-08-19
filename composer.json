@@ -2,7 +2,7 @@
   "name": "pagemachine/svconnector-xls",
   "description": "Connector service for reading a XLS(X) file",
   "type": "typo3-cms-extension",
-  "license": "proprietary",
+  "license": "GPL-3.0-or-later",
   "authors": [
     {
       "name": "Mathias Brodala",
