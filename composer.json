@@ -13,7 +13,7 @@
     "php": "^7.2",
     "cobweb/svconnector": "^3.4",
     "phpoffice/phpspreadsheet": "^1.14",
-    "typo3/cms-core": "^8.7"
+    "typo3/cms-core": "^8.7 || ^9.5"
   },
   "autoload": {
     "psr-4": {
