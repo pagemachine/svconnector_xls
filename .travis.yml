@@ -1,0 +1,52 @@
+dist: trusty
+sudo: false
+language: php
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+install:
+  - composer install
+
+jobs:
+  include:
+    - &test
+      name: "Lint & Tests: PHP 7.2, TYPO3v9"
+      php: 7.2
+      env: TYPO3_VERSION=^9.5
+      install:
+        - composer require typo3/cms-core="$TYPO3_VERSION"
+      script:
+        - composer lint:php
+        - composer test
+
+    - <<: *test
+      name: "Lint & Tests: PHP 7.3, TYPO3v9"
+      php: 7.3
+
+    - <<: *test
+      name: "Lint & Tests: PHP 7.3, TYPO3v10"
+      php: 7.3
+      env: TYPO3_VERSION=^10.4
+
+    - <<: *test
+      name: "Lint & Tests: PHP 7.1, TYPO3v8"
+      php: 7.1
+      env: TYPO3_VERSION=^8.7
+
+    - <<: *test
+      name: "Lint & Tests: PHP 7.2, TYPO3v8"
+      php: 7.2
+      env: TYPO3_VERSION=^8.7
+
+    - php: 7.1
+      name: TypoScript lint
+      script:
+        - composer lint:typoscript
+
+    - php: 7.1
+      name: Codestyle
+      script:
+        - composer lint:style
+

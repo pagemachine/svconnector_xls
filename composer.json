@@ -15,6 +15,21 @@
     "phpoffice/phpspreadsheet": "^1.14",
     "typo3/cms-core": "^8.7 || ^9.5"
   },
+  "require-dev": {
+    "cakephp/cakephp-codesniffer": "^3.0",
+    "ergebnis/composer-normalize": "^2.3",
+    "helmich/typo3-typoscript-lint": "^1.3",
+    "jangregor/phpstan-prophecy": "^0.5",
+    "nimut/testing-framework": "^4.1.1",
+    "php-parallel-lint/php-console-highlighter": "^0.4.0",
+    "php-parallel-lint/php-parallel-lint": "^1.2",
+    "phpstan/phpstan": "^0.12",
+    "phpunit/phpunit": "^6.5",
+    "saschaegerer/phpstan-typo3": "^0.12",
+    "sclable/xml-lint": "^0.2.2",
+    "slevomat/coding-standard": "^4.0",
+    "squizlabs/php_codesniffer": "^3.1"
+  },
   "autoload": {
     "psr-4": {
       "Pagemachine\\SvconnectorXls\\": "Classes"
@@ -24,5 +39,55 @@
     "psr-4": {
       "Pagemachine\\SvconnectorXls\\Tests\\": "Tests"
     }
+  },
+  "config": {
+    "bin-dir": "bin",
+    "sort-packages": true
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "formlog",
+      "cms-package-dir": "{$vendor-dir}/typo3/cms",
+      "web-dir": "web"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+        "@setup:php:functional"
+    ],
+    "analyze:php": [
+        "@composer require --dev phpstan/phpstan:^0.12 jangregor/phpstan-prophecy:^0.5 saschaegerer/phpstan-typo3:^0.12",
+        "phpstan analyse --ansi --no-progress --memory-limit=512M --configuration=phpstan.neon",
+        "@composer remove --dev phpstan/phpstan jangregor/phpstan-prophecy saschaegerer/phpstan-typo3"
+    ],
+    "build": [
+        "@composer validate --ansi",
+        "@composer install",
+        "@composer normalize --no-update-lock --dry-run",
+        "@lint",
+        "@test"
+    ],
+    "fix:style": "phpcbf",
+    "lint": [
+        "@lint:php",
+        "@lint:typoscript",
+        "@lint:style",
+        "@analyze:php",
+        "@lint:xml"
+    ],
+    "lint:php": "parallel-lint --exclude bin --exclude vendor --exclude web .",
+    "lint:style": "phpcs",
+    "lint:typoscript": "typoscript-lint --ansi",
+    "lint:xml": "xmllint --pattern '*.xlf,*.svg' Resources --ansi",
+    "setup:php:functional": [
+        "mkdir -p web/typo3conf/ext",
+        "ln -sfn ../../.. web/typo3conf/ext/formlog"
+    ],
+    "test": [
+        "@test:unit",
+        "@test:functional"
+    ],
+    "test:functional": "phpunit --configuration phpunit-functional.xml --colors=always",
+    "test:unit": "phpunit --colors=always"
   }
 }
