@@ -46,9 +46,19 @@
   },
   "extra": {
     "typo3/cms": {
-      "extension-key": "formlog",
+      "extension-key": "svconnector_xls",
       "cms-package-dir": "{$vendor-dir}/typo3/cms",
       "web-dir": "web"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Pagemachine\\SvconnectorXls\\": "Classes/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Pagemachine\\SvconnectorXls\\Tests\\": "Tests/"
     }
   },
   "scripts": {
@@ -81,7 +91,7 @@
     "lint:xml": "xmllint --pattern '*.xlf,*.svg' Resources --ansi",
     "setup:php:functional": [
         "mkdir -p web/typo3conf/ext",
-        "ln -sfn ../../.. web/typo3conf/ext/formlog"
+        "ln -sfn ../../.. web/typo3conf/ext/svconnector_xls"
     ],
     "test": [
         "@test:unit",
