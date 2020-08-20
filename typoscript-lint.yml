@@ -1,6 +1,0 @@
-sniffs:
-  - class: Indentation
-    parameters:
-      indentPerLevel: 2
-  - class: RepeatingRValue
-    disabled: true
