@@ -35,3 +35,8 @@ jobs:
       script:
         - composer lint:style
 
+    - php: 7.2
+      name: Static analysis
+      script:
+        - composer analyze:php
+
