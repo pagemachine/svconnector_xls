@@ -1,7 +1,7 @@
 {
     "name": "pagemachine/svconnector-xls",
-    "description": "Connector service for reading a XLS(X) file",
     "type": "typo3-cms-extension",
+    "description": "Connector service for reading a XLS(X) file",
     "license": "GPL-3.0-or-later",
     "authors": [
         {
@@ -29,16 +29,6 @@
         "slevomat/coding-standard": "^4.0",
         "squizlabs/php_codesniffer": "^3.1"
     },
-    "autoload": {
-        "psr-4": {
-            "Pagemachine\\SvconnectorXls\\": "Classes"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Pagemachine\\SvconnectorXls\\Tests\\": "Tests"
-        }
-    },
     "config": {
         "bin-dir": "bin",
         "sort-packages": true
@@ -62,33 +52,33 @@
     },
     "scripts": {
         "post-autoload-dump": [
-                "@setup:php:functional"
+            "@setup:php:functional"
         ],
         "analyze:php": "phpstan analyse --ansi --no-progress --memory-limit=512M --configuration=phpstan.neon",
         "build": [
-                "@composer validate --ansi",
-                "@composer install",
-                "@composer normalize --no-update-lock --dry-run",
-                "@lint",
-                "@test"
+            "@composer validate --ansi",
+            "@composer install",
+            "@composer normalize --no-update-lock --dry-run",
+            "@lint",
+            "@test"
         ],
         "fix:style": "phpcbf",
         "lint": [
-                "@lint:php",
-                "@lint:style",
-                "@analyze:php",
-                "@lint:xml"
+            "@lint:php",
+            "@lint:style",
+            "@analyze:php",
+            "@lint:xml"
         ],
         "lint:php": "parallel-lint --exclude bin --exclude vendor --exclude web .",
         "lint:style": "phpcs",
         "lint:xml": "xmllint --pattern '*.xlf,*.svg' Resources --ansi",
         "setup:php:functional": [
-                "mkdir -p web/typo3conf/ext",
-                "ln -sfn ../../.. web/typo3conf/ext/svconnector_xls"
+            "mkdir -p web/typo3conf/ext",
+            "ln -sfn ../../.. web/typo3conf/ext/svconnector_xls"
         ],
         "test": [
-                "@test:unit",
-                "@test:functional"
+            "@test:unit",
+            "@test:functional"
         ],
         "test:functional": "phpunit --configuration phpunit-functional.xml --colors=always",
         "test:unit": "phpunit --colors=always"
