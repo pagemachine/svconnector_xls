@@ -71,7 +71,7 @@
         ],
         "lint:php": "parallel-lint --exclude bin --exclude vendor --exclude web .",
         "lint:style": "phpcs",
-        "lint:xml": "xmllint --pattern '*.xlf,*.svg' Resources --ansi",
+        "lint:xml": "xmllint --pattern '*.xml,*.xlf,*.svg' --exclude bin,vendor,web --ansi .",
         "setup:php:functional": [
             "mkdir -p web/typo3conf/ext",
             "ln -sfn ../../.. web/typo3conf/ext/svconnector_xls"
