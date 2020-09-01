@@ -18,6 +18,7 @@
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^3.0",
+        "codedungeon/phpunit-result-printer": "^0.28.0",
         "ergebnis/composer-normalize": "^2.3",
         "nimut/testing-framework": "^4.1.1",
         "php-parallel-lint/php-console-highlighter": "^0.4.0",
