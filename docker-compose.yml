@@ -5,6 +5,7 @@ services:
     image: thecodingmachine/php:7.2-v2-fpm
     environment:
       PHP_EXTENSIONS: gd
+      TYPO3_VERSION: ${TYPO3_VERSION:-^9.5}
       typo3DatabaseHost: mysql
       typo3DatabasePassword: root
     depends_on:
