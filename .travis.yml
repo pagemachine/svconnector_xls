@@ -1,26 +1,22 @@
 dist: trusty
-sudo: false
-language: php
+language: shell
 
-cache:
-  directories:
-    - $HOME/.composer/cache
+services:
+  - docker
+
+script:
+  - docker-compose run --rm app composer build
+
+after_script:
+  - docker-compose down --volumes
 
 jobs:
   include:
-    - &build
-      name: "PHP 7.2, TYPO3v9"
-      php: 7.2
-      env: TYPO3_VERSION=^9.5
-      script:
-        - composer build
+    - env:
+        - PHP_VERSION=7.2
+        - TYPO3_VERSION=^9.5
 
-    - <<: *build
-      name: "PHP 7.3, TYPO3v9"
-      php: 7.3
-
-    - <<: *build
-      name: "PHP 7.2, TYPO3v8"
-      php: 7.2
-      env: TYPO3_VERSION=^8.7
+    - env:
+        - PHP_VERSION=7.2
+        - TYPO3_VERSION=^8.7
 

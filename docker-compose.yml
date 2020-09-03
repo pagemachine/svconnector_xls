@@ -2,7 +2,7 @@ version: '3'
 
 services:
   app:
-    image: thecodingmachine/php:7.2-v2-fpm
+    image: thecodingmachine/php:${PHP_VERSION:-7.2}-v2-fpm
     environment:
       PHP_EXTENSIONS: gd
       TYPO3_VERSION: ${TYPO3_VERSION:-^9.5}
@@ -10,7 +10,6 @@ services:
       typo3DatabasePassword: root
     depends_on:
       - mysql
-      - ssh-agent
       - ssh-key
     volumes:
       - ./:/var/www/html
@@ -18,7 +17,9 @@ services:
 
   mysql:
     image: mysql:5.7
-    command: ['mysqld', '--character-set-server=utf8mb4']
+    command:
+      - mysqld
+      - --character-set-server=utf8mb4
     environment:
       MYSQL_ROOT_PASSWORD: root
     tmpfs:
