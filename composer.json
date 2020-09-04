@@ -52,9 +52,6 @@
         }
     },
     "scripts": {
-        "post-autoload-dump": [
-            "@setup:php:functional"
-        ],
         "analyze:php": "phpstan analyse --ansi --no-progress --memory-limit=512M --configuration=phpstan.neon",
         "build": [
             "@composer require --no-progress --ansi --update-with-dependencies typo3/cms-core $TYPO3_VERSION",
@@ -73,15 +70,15 @@
         "lint:php": "parallel-lint --exclude bin --exclude vendor --exclude web .",
         "lint:style": "phpcs",
         "lint:xml": "xmllint --pattern '*.xml,*.xlf,*.svg' --exclude bin,vendor,web --ansi .",
-        "setup:php:functional": [
-            "mkdir -p web/typo3conf/ext",
-            "ln -sfn ../../.. web/typo3conf/ext/svconnector_xls"
-        ],
         "test": [
             "@test:unit",
             "@test:functional"
         ],
-        "test:functional": "phpunit --configuration phpunit-functional.xml --colors=always",
+        "test:functional": [
+            "mkdir -p web/typo3conf/ext",
+            "ln -sfn ../../.. web/typo3conf/ext/$(composer config extra.typo3/cms.extension-key)",
+            "phpunit --configuration phpunit-functional.xml --colors=always"
+        ],
         "test:unit": "phpunit --colors=always"
     }
 }
