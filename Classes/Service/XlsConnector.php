@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace Pagemachine\SvconnectorXls\Service;
 
 use Cobweb\Svconnector\Exception\SourceErrorException;
+use Cobweb\Svconnector\Utility\FileUtility;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
@@ -39,8 +40,16 @@ final class XlsConnector extends AbstractConnector
         $this->logger->info('Call parameters', $parameters);
         $this->validateConfiguration($parameters);
 
-        $filename = GeneralUtility::getFileAbsFileName($parameters['filename']);
-        $reader = IOFactory::createReaderForFile($filename);
+        $fileUtility = GeneralUtility::makeInstance(FileUtility::class);
+        $filename =  $fileUtility->getFileAsTemporaryFile($parameters['filename']);
+
+        if ($filename === false) {
+            $this->raiseError($fileUtility->getError(), 1605278290, $parameters, SourceErrorException::class);
+
+            return;
+        }
+
+        $reader = IOFactory::createReader('Xls');
         $reader->setReadDataOnly(true);
         $spreadsheet = $reader->load($filename);
 
