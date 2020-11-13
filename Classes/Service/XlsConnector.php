@@ -40,7 +40,7 @@ final class XlsConnector extends AbstractConnector
         $this->validateConfiguration($parameters);
 
         $filename = GeneralUtility::getFileAbsFileName($parameters['filename']);
-        $reader = IOFactory::createReaderForFile($filename);
+        $reader = IOFactory::createReader('Xls');
         $reader->setReadDataOnly(true);
         $spreadsheet = $reader->load($filename);
 
