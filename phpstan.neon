@@ -10,9 +10,6 @@ parameters:
     - Classes
     - Tests
 
-  bootstrapFiles:
-    - Tests/StaticAnalysis/constants.php
-
   ignoreErrors:
     - message: '#Variable \$_EXTKEY might not be defined#'
       path: '*/ext_emconf.php'
