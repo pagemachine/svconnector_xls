@@ -1,8 +1,8 @@
 {
     "name": "pagemachine/svconnector-xls",
-    "type": "typo3-cms-extension",
     "description": "Connector service for reading a XLS(X) file",
     "license": "GPL-3.0-or-later",
+    "type": "typo3-cms-extension",
     "authors": [
         {
             "name": "Mathias Brodala",
@@ -30,6 +30,16 @@
         "slevomat/coding-standard": "^7.0",
         "squizlabs/php_codesniffer": "^3.1"
     },
+    "autoload": {
+        "psr-4": {
+            "Pagemachine\\SvconnectorXls\\": "Classes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pagemachine\\SvconnectorXls\\Tests\\": "Tests/"
+        }
+    },
     "config": {
         "bin-dir": "bin",
         "sort-packages": true
@@ -39,16 +49,6 @@
             "cms-package-dir": "{$vendor-dir}/typo3/cms",
             "extension-key": "svconnector_xls",
             "web-dir": "web"
-        }
-    },
-    "autoload": {
-        "psr-4": {
-            "Pagemachine\\SvconnectorXls\\": "Classes/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Pagemachine\\SvconnectorXls\\Tests\\": "Tests/"
         }
     },
     "scripts": {
