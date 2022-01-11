@@ -41,6 +41,12 @@
         }
     },
     "config": {
+        "allow-plugins": {
+            "typo3/cms-composer-installers": true,
+            "typo3/class-alias-loader": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "ergebnis/composer-normalize": true
+        },
         "bin-dir": "bin",
         "sort-packages": true
     },
