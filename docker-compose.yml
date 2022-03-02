@@ -6,8 +6,8 @@ services:
     environment:
       PHP_EXTENSIONS: gd
       TYPO3_VERSION: ${TYPO3_VERSION:-^10.4}
-      TYPO3_ORG_PASSWORD:
-      TYPO3_ORG_USERNAME:
+      TYPO3_API_PASSWORD:
+      TYPO3_API_USERNAME:
       typo3DatabaseHost: mysql
       typo3DatabaseUsername: root
       typo3DatabasePassword: root
