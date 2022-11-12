@@ -70,7 +70,7 @@ abstract class AbstractConnector extends ConnectorBase
         $this->logger->info('Structured data', $data);
 
         // Implement post-processing hook
-        if (is_array($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$this->extensionKey]['processArray'])) {
+        if (is_array(($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$this->extensionKey]['processArray'] ?? ''))) {
             foreach ($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$this->extensionKey]['processArray'] as $className) {
                 $processor = GeneralUtility::makeInstance($className);
                 $data = $processor->processArray($data, $this);
