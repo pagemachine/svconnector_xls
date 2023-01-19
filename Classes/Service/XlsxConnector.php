@@ -57,7 +57,7 @@ final class XlsxConnector extends AbstractConnector
         }
 
         // Process the result if any hook is registered
-        if (is_array($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$this->extensionKey]['processResponse'])) {
+        if (is_array(($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][($this->extensionKey)]['processResponse'] ?? ''))) {
             foreach ($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$this->extensionKey]['processResponse'] as $className) {
                 $processor = GeneralUtility::makeInstance($className);
                 $data = $processor->processResponse($data, $this);
