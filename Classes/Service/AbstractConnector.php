@@ -13,13 +13,6 @@ abstract class AbstractConnector extends ConnectorBase
 {
     protected $extensionKey = 'svconnector_xls';
 
-    public function init(): bool
-    {
-        parent::init();
-
-        return true;
-    }
-
     /**
      * @param array $parameters
      * @return mixed
