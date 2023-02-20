@@ -13,10 +13,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class XlsConnector extends AbstractConnector
 {
-    /**
-     * @param array $parameters
-     */
-    public function checkConfiguration($parameters): array
+    public function checkConfiguration(array $parameters = []): array
     {
         $result = parent::checkConfiguration($parameters);
 
@@ -33,10 +30,9 @@ final class XlsConnector extends AbstractConnector
     }
 
     /**
-     * @param array $parameters
      * @return mixed
      */
-    protected function query($parameters)
+    protected function query(array $parameters = [])
     {
         $this->logger->info('Call parameters', $parameters);
         $this->validateConfiguration($parameters);

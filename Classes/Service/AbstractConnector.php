@@ -14,10 +14,9 @@ abstract class AbstractConnector extends ConnectorBase
     protected string $extensionKey = 'svconnector_xls';
 
     /**
-     * @param array $parameters
      * @return mixed
      */
-    public function fetchRaw($parameters)
+    public function fetchRaw(array $parameters = [])
     {
         $result = $this->query($parameters);
 
@@ -32,10 +31,7 @@ abstract class AbstractConnector extends ConnectorBase
         return $result;
     }
 
-    /**
-     * @param array $parameters
-     */
-    public function fetchArray($parameters): array
+    public function fetchArray(array $parameters = []): array
     {
         $headers = [];
         $data = [];
@@ -73,10 +69,7 @@ abstract class AbstractConnector extends ConnectorBase
         return $data;
     }
 
-    /**
-     * @param array $parameters
-     */
-    public function fetchXML($parameters): string
+    public function fetchXML(array $parameters = []): string
     {
         // Get the data as an array
         $result = $this->fetchArray($parameters);
