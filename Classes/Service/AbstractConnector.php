@@ -11,7 +11,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 abstract class AbstractConnector extends ConnectorBase
 {
-    protected $extensionKey = 'svconnector_xls';
+    protected string $extensionKey = 'svconnector_xls';
 
     /**
      * @param array $parameters
