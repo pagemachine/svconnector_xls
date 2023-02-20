@@ -13,6 +13,16 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class XlsConnector extends AbstractConnector
 {
+    public function getType(): string
+    {
+        return 'xls';
+    }
+
+    public function getName(): string
+    {
+        return 'XLS Connector';
+    }
+
     public function checkConfiguration(array $parameters = []): array
     {
         $result = parent::checkConfiguration($parameters);

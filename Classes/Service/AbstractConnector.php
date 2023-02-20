@@ -13,6 +13,11 @@ abstract class AbstractConnector extends ConnectorBase
 {
     protected string $extensionKey = 'svconnector_xls';
 
+    public function isAvailable(): bool
+    {
+        return true;
+    }
+
     /**
      * @return mixed
      */
