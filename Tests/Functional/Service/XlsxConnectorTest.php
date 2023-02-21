@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Pagemachine\SvconnectorXls\Tests\Functional\Service;
 
 use Cobweb\Svconnector\Domain\Repository\ConnectorRepository;
+use Cobweb\Svconnector\Registry\ConnectorRegistry;
 use Cobweb\Svconnector\Service\ConnectorBase;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -102,8 +103,14 @@ final class XlsxConnectorTest extends FunctionalTestCase
 
     private function getConnector(): ConnectorBase
     {
-        $connectorRepository = GeneralUtility::makeInstance(ConnectorRepository::class);
+        if (class_exists(ConnectorRepository::class)) {
+            $connectorRepository = GeneralUtility::makeInstance(ConnectorRepository::class);
 
-        return $connectorRepository->findServiceByKey('tx_svconnectorxls_xlsx');
+            return $connectorRepository->findServiceByKey('tx_svconnectorxls_xlsx');
+        }
+
+        $connectorRegistry = GeneralUtility::makeInstance(ConnectorRegistry::class);
+
+        return $connectorRegistry->getServiceForType('xlsx');
     }
 }
