@@ -10,7 +10,6 @@
   <file>Classes</file>
   <file>Tests</file>
   <file>ext_emconf.php</file>
-  <file>ext_localconf.php</file>
 
   <rule ref="PSR2">
     <exclude name="Generic.Files.LineLength"/>
