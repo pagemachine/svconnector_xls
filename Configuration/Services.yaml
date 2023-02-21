@@ -1,0 +1,18 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Pagemachine\SvconnectorXls\:
+    resource: '../Classes/*'
+
+  Pagemachine\SvconnectorXls\Service\XlsConnector:
+    public: true
+    arguments:
+      - !tagged_iterator connector.service
+
+  Pagemachine\SvconnectorXls\Service\XlsxConnector:
+    public: true
+    arguments:
+      - !tagged_iterator connector.service

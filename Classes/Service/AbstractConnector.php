@@ -11,20 +11,17 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 abstract class AbstractConnector extends ConnectorBase
 {
-    protected $extensionKey = 'svconnector_xls';
+    protected string $extensionKey = 'svconnector_xls';
 
-    public function init(): bool
+    public function isAvailable(): bool
     {
-        parent::init();
-
         return true;
     }
 
     /**
-     * @param array $parameters
      * @return mixed
      */
-    public function fetchRaw($parameters)
+    public function fetchRaw(array $parameters = [])
     {
         $result = $this->query($parameters);
 
@@ -39,10 +36,7 @@ abstract class AbstractConnector extends ConnectorBase
         return $result;
     }
 
-    /**
-     * @param array $parameters
-     */
-    public function fetchArray($parameters): array
+    public function fetchArray(array $parameters = []): array
     {
         $headers = [];
         $data = [];
@@ -80,10 +74,7 @@ abstract class AbstractConnector extends ConnectorBase
         return $data;
     }
 
-    /**
-     * @param array $parameters
-     */
-    public function fetchXML($parameters): string
+    public function fetchXML(array $parameters = []): string
     {
         // Get the data as an array
         $result = $this->fetchArray($parameters);

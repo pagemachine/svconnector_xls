@@ -6,7 +6,6 @@ parameters:
 
   paths:
     - ext_emconf.php
-    - ext_localconf.php
     - Classes
     - Tests
 

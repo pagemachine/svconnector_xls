@@ -10,10 +10,17 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class XlsxConnector extends AbstractConnector
 {
-    /**
-     * @param array $parameters
-     */
-    public function checkConfiguration($parameters): array
+    public function getType(): string
+    {
+        return 'xlsx';
+    }
+
+    public function getName(): string
+    {
+        return 'XLSX Connector';
+    }
+
+    public function checkConfiguration(array $parameters = []): array
     {
         $result = parent::checkConfiguration($parameters);
 
@@ -30,10 +37,9 @@ final class XlsxConnector extends AbstractConnector
     }
 
     /**
-     * @param array $parameters
      * @return mixed
      */
-    protected function query($parameters)
+    protected function query(array $parameters = [])
     {
         $this->logger->info('Call parameters', $parameters);
         $this->validateConfiguration($parameters);
