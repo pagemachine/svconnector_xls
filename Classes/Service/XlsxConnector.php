@@ -4,7 +4,10 @@ declare(strict_types = 1);
 
 namespace Pagemachine\SvconnectorXls\Service;
 
-use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
+use Cobweb\Svconnector\Exception\SourceErrorException;
+use Cobweb\Svconnector\Utility\FileUtility;
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -44,22 +47,37 @@ final class XlsxConnector extends AbstractConnector
         $this->logger->info('Call parameters', $parameters);
         $this->validateConfiguration($parameters);
 
-        $filename = GeneralUtility::getFileAbsFileName($parameters['filename']);
-        $reader = ReaderEntityFactory::createXLSXReader();
-        $reader->open($filename);
+        $fileUtility = GeneralUtility::makeInstance(FileUtility::class);
+        $filename =  $fileUtility->getFileAsTemporaryFile($parameters['filename']);
+
+        if ($filename === false) {
+            $this->raiseError($fileUtility->getError(), 1605278290, $parameters, SourceErrorException::class);
+
+            return;
+        }
+
+        $reader = IOFactory::createReader('Xlsx');
+        $reader->setReadDataOnly(true);
+        $spreadsheet = $reader->load($filename);
+
+        try {
+            $worksheet = $spreadsheet->getActiveSheet();
+        } catch (SpreadsheetException $e) {
+            $this->raiseError($e->getMessage(), 1596554370, $parameters, SourceErrorException::class);
+
+            return;
+        }
 
         $data = [];
 
-        foreach ($reader->getSheetIterator() as $sheet) {
-            foreach ($sheet->getRowIterator() as $row) {
-                $item = [];
+        foreach ($worksheet->getRowIterator() as $row) {
+            $item = [];
 
-                foreach ($row->getCells() as $key => $cell) {
-                    $item[] = $cell->getValue();
-                }
-
-                $data[] = $item;
+            foreach ($row->getCellIterator() as $key => $cell) {
+                $item[$key] = $cell->getValue();
             }
+
+            $data[] = $item;
         }
 
         // Process the result if any hook is registered
