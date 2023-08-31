@@ -45,19 +45,19 @@ final class XlsxConnectorTest extends FunctionalTestCase
             ],
             [
                 [
-                    0 => 'Header 1',
-                    1 => 'Header 2',
-                    2 => 'Header 3',
+                    'A' => 'Header 1',
+                    'B' => 'Header 2',
+                    'C' => 'Header 3',
                 ],
                 [
-                    0 => 'Value 1.1',
-                    1 => 'Value 1.2',
-                    2 => 'Value 1.3',
+                    'A' => 'Value 1.1',
+                    'B' => 'Value 1.2',
+                    'C' => 'Value 1.3',
                 ],
                 [
-                    0 => 'Value 2.1',
-                    1 => 'Value 2.2',
-                    2 => 'Value 2.3',
+                    'A' => 'Value 2.1',
+                    'B' => 'Value 2.2',
+                    'C' => 'Value 2.3',
                 ],
             ],
         ];
