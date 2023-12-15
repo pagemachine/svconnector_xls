@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\SvconnectorXls\Tests\Functional\Service;
 
@@ -34,7 +34,7 @@ final class XlsxConnectorTest extends FunctionalTestCase
 
         $data = $connector->fetchArray($parameters);
 
-        $this->assertEquals($expected, $data);
+        self::assertEquals($expected, $data);
     }
 
     public function validCases(): \Generator
