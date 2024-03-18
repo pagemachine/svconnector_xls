@@ -59,8 +59,6 @@
         "analyze:php": "phpstan analyse --ansi --no-progress --memory-limit=512M --configuration=phpstan.neon",
         "build": [
             "@composer require --no-progress --ansi --update-with-dependencies typo3/cms-core $TYPO3_VERSION",
-            "@composer validate --ansi",
-            "@composer normalize --no-update-lock --dry-run",
             "@lint",
             "@test"
         ],
@@ -72,6 +70,10 @@
             "(mkdir -p /tmp/vendors && cd /tmp/vendors && composer require box/spout:^3.1 phpoffice/phpspreadsheet:^1.14 && composer global exec phar-composer build -v)",
             "cp /tmp/vendors/vendors.phar .",
             "echo \"require 'phar://' . \\TYPO3\\CMS\\Core\\Utility\\ExtensionManagementUtility::extPath('$(composer config extra.typo3/cms.extension-key)') . 'vendors.phar/vendor/autoload.php';\" >> ext_localconf.php"
+        ],
+        "composer:lint": [
+            "@composer validate --ansi",
+            "@composer normalize --no-update-lock --dry-run"
         ],
         "deploy:ter": [
             "@build:cleanup",
@@ -87,6 +89,7 @@
         ],
         "fix:style": "php-cs-fixer fix --diff",
         "lint": [
+            "@composer:lint",
             "@lint:php",
             "@lint:style",
             "@analyze:php",
