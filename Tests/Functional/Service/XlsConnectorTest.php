@@ -7,20 +7,20 @@ namespace Pagemachine\SvconnectorXls\Tests\Functional\Service;
 use Cobweb\Svconnector\Domain\Repository\ConnectorRepository;
 use Cobweb\Svconnector\Registry\ConnectorRegistry;
 use Cobweb\Svconnector\Service\ConnectorBase;
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * Testcase for \Pagemachine\SvconnectorXls\Service\XlsConnector
  */
 final class XlsConnectorTest extends FunctionalTestCase
 {
-    protected $testExtensionsToLoad = [
+    protected array $testExtensionsToLoad = [
         'typo3conf/ext/svconnector',
         'typo3conf/ext/svconnector_xls',
     ];
 
-    protected $pathsToLinkInTestInstance = [
+    protected array $pathsToLinkInTestInstance = [
         'typo3conf/ext/svconnector_xls/Tests/Functional/Service/Fixtures/plain.xls' => 'fileadmin/plain.xls',
     ];
 
