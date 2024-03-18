@@ -13,10 +13,9 @@
         "php": "^8.2",
         "cobweb/svconnector": "^5.0",
         "phpoffice/phpspreadsheet": "^2.0",
-        "typo3/cms-core": "^11.5"
+        "typo3/cms-core": "^11.5 || ^12.4"
     },
     "require-dev": {
-        "codedungeon/phpunit-result-printer": "^0.32.0",
         "ergebnis/composer-normalize": "^2.3",
         "friendsofphp/php-cs-fixer": "^3.41",
         "php-parallel-lint/php-console-highlighter": "^1.0.0",
