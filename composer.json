@@ -13,7 +13,7 @@
         "php": "^8.2",
         "cobweb/svconnector": "^5.0",
         "phpoffice/phpspreadsheet": "^2.0",
-        "typo3/cms-core": "^11.5"
+        "typo3/cms-core": "^11.5 || ^12.4"
     },
     "require-dev": {
         "codedungeon/phpunit-result-printer": "^0.32.0",
