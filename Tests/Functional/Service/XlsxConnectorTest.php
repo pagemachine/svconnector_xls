@@ -7,6 +7,8 @@ namespace Pagemachine\SvconnectorXls\Tests\Functional\Service;
 use Cobweb\Svconnector\Domain\Repository\ConnectorRepository;
 use Cobweb\Svconnector\Registry\ConnectorRegistry;
 use Cobweb\Svconnector\Service\ConnectorBase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
@@ -24,10 +26,8 @@ final class XlsxConnectorTest extends FunctionalTestCase
         'typo3conf/ext/svconnector_xls/Tests/Functional/Service/Fixtures/plain.xlsx' => 'fileadmin/plain.xlsx',
     ];
 
-    /**
-     * @test
-     * @dataProvider validCases
-     */
+    #[DataProvider('validCases')]
+    #[Test]
     public function readsXls(array $parameters, array $expected)
     {
         $connector = $this->getConnector();
@@ -37,7 +37,7 @@ final class XlsxConnectorTest extends FunctionalTestCase
         self::assertEquals($expected, $data);
     }
 
-    public function validCases(): \Generator
+    public static function validCases(): \Generator
     {
         yield 'plain XLSX file' => [
             [
