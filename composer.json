@@ -23,8 +23,10 @@
         "php-parallel-lint/php-parallel-lint": "^1.2",
         "phpstan/phpstan": "^1.0.0",
         "phpunit/phpunit": "^9.0",
+        "rector/rector": "^1.0",
         "saschaegerer/phpstan-typo3": "^1.0.0",
         "sclable/xml-lint": "^0.6",
+        "ssch/typo3-rector": "^2.1",
         "typo3/coding-standards": "^0.7.1",
         "typo3/testing-framework": "^7.0"
     },
@@ -69,9 +71,12 @@
             "@php:syntax:lint",
             "@php:style:lint",
             "@php:static:lint",
+            "@php:rector:lint",
             "@xml:lint"
         ],
         "php:functional:test": "phpunit --configuration phpunit-functional.xml --colors=always",
+        "php:rector:fix": "rector",
+        "php:rector:lint": "rector --dry-run --no-progress-bar",
         "php:static:lint": "phpstan analyse --ansi --no-progress --memory-limit=512M --configuration=phpstan.neon",
         "php:style:fix": "php-cs-fixer fix --diff",
         "php:style:lint": "php-cs-fixer fix --dry-run --diff",

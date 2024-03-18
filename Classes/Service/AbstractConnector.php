@@ -82,7 +82,7 @@ abstract class AbstractConnector extends ConnectorBase
         $xml = GeneralUtility::array2xml($result);
         // Check if the current (BE) charset is the same as the file encoding
         $encoding = $parameters['encoding'] ?? 'UTF-8';
-        $xml = '<?xml version="1.0" encoding="' . htmlspecialchars($encoding) . '" standalone="yes" ?>' . "\n" . $xml;
+        $xml = '<?xml version="1.0" encoding="' . htmlspecialchars((string)$encoding) . '" standalone="yes" ?>' . "\n" . $xml;
 
         // Implement post-processing hook
         if (is_array($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$this->extensionKey]['processXML'])) {
