@@ -19,14 +19,14 @@
         "codedungeon/phpunit-result-printer": "^0.32.0",
         "ergebnis/composer-normalize": "^2.3",
         "friendsofphp/php-cs-fixer": "^3.41",
-        "nimut/testing-framework": "6.x@dev",
         "php-parallel-lint/php-console-highlighter": "^1.0.0",
         "php-parallel-lint/php-parallel-lint": "^1.2",
         "phpstan/phpstan": "^1.0.0",
         "phpunit/phpunit": "^9.0",
         "saschaegerer/phpstan-typo3": "^1.0.0",
         "sclable/xml-lint": "^0.6",
-        "typo3/coding-standards": "^0.7.1"
+        "typo3/coding-standards": "^0.7.1",
+        "typo3/testing-framework": "^7.0"
     },
     "autoload": {
         "psr-4": {
@@ -56,9 +56,6 @@
         }
     },
     "scripts": {
-        "post-autoload-dump": [
-            "Nimut\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
-        ],
         "analyze:php": "phpstan analyse --ansi --no-progress --memory-limit=512M --configuration=phpstan.neon",
         "build": [
             "@composer require --no-progress --ansi --update-with-dependencies typo3/cms-core $TYPO3_VERSION",
