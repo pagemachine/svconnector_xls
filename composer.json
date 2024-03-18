@@ -71,6 +71,7 @@
             "@php:syntax:lint",
             "@php:style:lint",
             "@php:static:lint",
+            "@php:rector:lint",
             "@xml:lint"
         ],
         "php:functional:test": "phpunit --configuration phpunit-functional.xml --colors=always",
