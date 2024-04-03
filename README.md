@@ -6,4 +6,4 @@ This service provides a simple API for reading XLS(X) files and return their con
 
 All tests can be executed with the shipped Docker Compose definition:
 
-    docker-compose run --rm app composer build
+    docker compose run --rm app composer build
