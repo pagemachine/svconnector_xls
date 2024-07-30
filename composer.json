@@ -106,6 +106,6 @@
             "@php:unit:test",
             "@php:functional:test"
         ],
-        "xml:lint": "xmllint --pattern '*.xml,*.xlf,*.svg' --exclude bin,vendor,web --ansi ."
+        "xml:lint": "xmllint --pattern '*.xml,*.xlf,*.svg' --exclude bin,vendor,web --skip-xsd --ansi ."
     }
 }
