@@ -26,7 +26,7 @@
         "saschaegerer/phpstan-typo3": "^1.0.0",
         "sclable/xml-lint": "^0.8",
         "ssch/typo3-rector": "^2.1",
-        "typo3/coding-standards": "^0.7.1",
+        "typo3/coding-standards": "^0.7.1 || ^0.8.0",
         "typo3/testing-framework": "^7.0"
     },
     "autoload": {
