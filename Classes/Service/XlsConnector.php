@@ -52,20 +52,17 @@ final class XlsConnector extends AbstractConnector
 
         if ($filename === false) {
             $this->raiseError($fileUtility->getError(), 1605278290, $parameters, SourceErrorException::class);
-
-            return;
         }
 
         $reader = IOFactory::createReader('Xls');
         $reader->setReadDataOnly(true);
         $spreadsheet = $reader->load($filename);
+        $worksheet = null;
 
         try {
             $worksheet = $spreadsheet->getActiveSheet();
         } catch (SpreadsheetException $e) {
             $this->raiseError($e->getMessage(), 1596554370, $parameters, SourceErrorException::class);
-
-            return;
         }
 
         $data = [];
