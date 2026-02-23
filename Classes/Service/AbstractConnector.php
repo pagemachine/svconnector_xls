@@ -23,7 +23,7 @@ abstract class AbstractConnector extends ConnectorBase
      */
     public function fetchRaw(array $parameters = [])
     {
-        $result = $this->query($parameters);
+        $result = $this->query();
 
         // Implement post-processing hook
         if (is_array($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$this->extensionKey]['processRaw'])) {
@@ -41,13 +41,13 @@ abstract class AbstractConnector extends ConnectorBase
         $headers = [];
         $data = [];
         // Get the data from the file
-        $result = $this->query($parameters);
+        $result = $this->query();
         $numResults = count($result);
         // If there are some results, process them
         if ($numResults > 0) {
             // Handle header rows, if any
-            if (!empty($parameters['skip_rows'])) {
-                for ($i = 0; $i < $parameters['skip_rows']; $i++) {
+            if (!empty($this->parameters['skip_rows'])) {
+                for ($i = 0; $i < $this->parameters['skip_rows']; $i++) {
                     $headers = array_shift($result);
                 }
             }
@@ -77,11 +77,11 @@ abstract class AbstractConnector extends ConnectorBase
     public function fetchXML(array $parameters = []): string
     {
         // Get the data as an array
-        $result = $this->fetchArray($parameters);
+        $result = $this->fetchArray();
         // Transform result to XML
         $xml = GeneralUtility::array2xml($result);
         // Check if the current (BE) charset is the same as the file encoding
-        $encoding = $parameters['encoding'] ?? 'UTF-8';
+        $encoding = $this->parameters['encoding'] ?? 'UTF-8';
         $xml = '<?xml version="1.0" encoding="' . htmlspecialchars((string)$encoding) . '" standalone="yes" ?>' . "\n" . $xml;
 
         // Implement post-processing hook
@@ -95,10 +95,10 @@ abstract class AbstractConnector extends ConnectorBase
         return $xml;
     }
 
-    protected function validateConfiguration(array $parameters): void
+    protected function validateConfiguration(): void
     {
         // Check the configuration
-        $problems = $this->checkConfiguration($parameters);
+        $problems = $this->checkConfiguration();
         // Log all issues and raise error if any
         $this->logConfigurationCheck($problems);
 
