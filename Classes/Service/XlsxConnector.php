@@ -8,7 +8,7 @@ use Cobweb\Svconnector\Exception\SourceErrorException;
 use Cobweb\Svconnector\Utility\FileUtility;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class XlsxConnector extends AbstractConnector
@@ -29,11 +29,11 @@ final class XlsxConnector extends AbstractConnector
 
         // The "filename" parameter is mandatory
         if (empty($this->parameters['filename'])) {
-            $result[AbstractMessage::ERROR][] = 'The "filename" parameter is mandatory.';
+            $result[ContextualFeedbackSeverity::ERROR->value][] = 'The "filename" parameter is mandatory.';
         }
 
         if (empty(GeneralUtility::getFileAbsFileName($this->parameters['filename']))) {
-            $result[AbstractMessage::ERROR][] = 'The "filename" does not exist.';
+            $result[ContextualFeedbackSeverity::ERROR->value][] = 'The "filename" does not exist.';
         }
 
         return $result;

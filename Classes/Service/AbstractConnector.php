@@ -6,7 +6,7 @@ namespace Pagemachine\SvconnectorXls\Service;
 
 use Cobweb\Svconnector\Exception\SourceErrorException;
 use Cobweb\Svconnector\Service\ConnectorBase;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 abstract class AbstractConnector extends ConnectorBase
@@ -102,10 +102,10 @@ abstract class AbstractConnector extends ConnectorBase
         // Log all issues and raise error if any
         $this->logConfigurationCheck($problems);
 
-        if (count($problems[AbstractMessage::ERROR]) > 0) {
+        if (count($problems[ContextualFeedbackSeverity::ERROR->value]) > 0) {
             $message = '';
 
-            foreach ($problems[AbstractMessage::ERROR] as $problem) {
+            foreach ($problems[ContextualFeedbackSeverity::ERROR->value] as $problem) {
                 if ($message !== '') {
                     $message .= "\n";
                 }
