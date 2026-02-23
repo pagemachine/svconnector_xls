@@ -23,6 +23,10 @@ abstract class AbstractConnector extends ConnectorBase
      */
     public function fetchRaw(array $parameters = [])
     {
+        if (isset($this->parameters)) {
+            $parameters = $this->parameters;
+        }
+
         $result = $this->query($parameters);
 
         // Implement post-processing hook
@@ -38,6 +42,10 @@ abstract class AbstractConnector extends ConnectorBase
 
     public function fetchArray(array $parameters = []): array
     {
+        if (isset($this->parameters)) {
+            $parameters = $this->parameters;
+        }
+
         $headers = [];
         $data = [];
         // Get the data from the file

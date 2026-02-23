@@ -25,6 +25,10 @@ final class XlsxConnector extends AbstractConnector
 
     public function checkConfiguration(array $parameters = []): array
     {
+        if (isset($this->parameters)) {
+            $parameters = $this->parameters;
+        }
+
         $result = parent::checkConfiguration($parameters);
 
         // The "filename" parameter is mandatory
@@ -45,6 +49,10 @@ final class XlsxConnector extends AbstractConnector
      */
     protected function query(array $parameters = [])
     {
+        if (isset($this->parameters)) {
+            $parameters = $this->parameters;
+        }
+
         $this->logger->info('Call parameters', $parameters);
         $this->validateConfiguration($parameters);
 
