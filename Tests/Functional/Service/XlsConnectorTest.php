@@ -31,8 +31,9 @@ final class XlsConnectorTest extends FunctionalTestCase
     public function readsXls(array $parameters, array $expected)
     {
         $connector = $this->getConnector();
+        $connector->setParameters($parameters);
 
-        $data = $connector->fetchArray($parameters);
+        $data = $connector->fetchArray();
 
         self::assertEquals($expected, $data);
     }

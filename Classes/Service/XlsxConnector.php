@@ -8,7 +8,7 @@ use Cobweb\Svconnector\Exception\SourceErrorException;
 use Cobweb\Svconnector\Utility\FileUtility;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class XlsxConnector extends AbstractConnector
@@ -25,15 +25,15 @@ final class XlsxConnector extends AbstractConnector
 
     public function checkConfiguration(array $parameters = []): array
     {
-        $result = parent::checkConfiguration($parameters);
+        $result = parent::checkConfiguration();
 
         // The "filename" parameter is mandatory
-        if (empty($parameters['filename'])) {
-            $result[AbstractMessage::ERROR][] = 'The "filename" parameter is mandatory.';
+        if (empty($this->parameters['filename'])) {
+            $result[ContextualFeedbackSeverity::ERROR->value][] = 'The "filename" parameter is mandatory.';
         }
 
-        if (empty(GeneralUtility::getFileAbsFileName($parameters['filename']))) {
-            $result[AbstractMessage::ERROR][] = 'The "filename" does not exist.';
+        if (empty(GeneralUtility::getFileAbsFileName($this->parameters['filename']))) {
+            $result[ContextualFeedbackSeverity::ERROR->value][] = 'The "filename" does not exist.';
         }
 
         return $result;
@@ -45,14 +45,14 @@ final class XlsxConnector extends AbstractConnector
      */
     protected function query(array $parameters = [])
     {
-        $this->logger->info('Call parameters', $parameters);
-        $this->validateConfiguration($parameters);
+        $this->logger->info('Call parameters', $this->parameters);
+        $this->validateConfiguration();
 
         $fileUtility = GeneralUtility::makeInstance(FileUtility::class);
-        $filename =  $fileUtility->getFileAsTemporaryFile($parameters['filename']);
+        $filename =  $fileUtility->getFileAsTemporaryFile($this->parameters['filename']);
 
         if ($filename === false) {
-            $this->raiseError($fileUtility->getError(), 1605278290, $parameters, SourceErrorException::class);
+            $this->raiseError($fileUtility->getError(), 1605278290, $this->parameters, SourceErrorException::class);
         }
 
         $reader = IOFactory::createReader('Xlsx');
@@ -63,7 +63,7 @@ final class XlsxConnector extends AbstractConnector
         try {
             $worksheet = $spreadsheet->getActiveSheet();
         } catch (SpreadsheetException $e) {
-            $this->raiseError($e->getMessage(), 1596554370, $parameters, SourceErrorException::class);
+            $this->raiseError($e->getMessage(), 1596554370, $this->parameters, SourceErrorException::class);
         }
 
         $data = [];
