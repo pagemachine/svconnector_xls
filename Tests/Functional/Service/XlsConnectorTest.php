@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Pagemachine\SvconnectorXls\Tests\Functional\Service;
 
-use Cobweb\Svconnector\Domain\Repository\ConnectorRepository;
-use Cobweb\Svconnector\Registry\ConnectorRegistry;
-use Cobweb\Svconnector\Service\ConnectorBase;
+use Cobweb\Svconnector\Domain\Model\Dto\CallContext;
+use Cobweb\Svconnector\Domain\Model\Dto\ConnectionInformation;
+use Pagemachine\SvconnectorXls\Service\XlsConnector;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
+use Psr\Log\NullLogger;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
@@ -30,7 +31,12 @@ final class XlsConnectorTest extends FunctionalTestCase
     #[Test]
     public function readsXls(array $parameters, array $expected)
     {
-        $connector = $this->getConnector();
+        $connector = new XlsConnector(
+            $this->get(EventDispatcherInterface::class),
+            new CallContext(),
+            new ConnectionInformation(),
+        );
+        $connector->setLogger(new NullLogger());
         $connector->setParameters($parameters);
 
         $data = $connector->fetchArray();
@@ -100,18 +106,5 @@ final class XlsConnectorTest extends FunctionalTestCase
                 ],
             ],
         ];
-    }
-
-    private function getConnector(): ConnectorBase
-    {
-        if (class_exists(ConnectorRepository::class)) {
-            $connectorRepository = GeneralUtility::makeInstance(ConnectorRepository::class);
-
-            return $connectorRepository->findServiceByKey('tx_svconnectorxls_xls');
-        }
-
-        $connectorRegistry = GeneralUtility::makeInstance(ConnectorRegistry::class);
-
-        return $connectorRegistry->getServiceForType('xls');
     }
 }
