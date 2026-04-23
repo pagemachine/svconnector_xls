@@ -23,7 +23,7 @@ final class XlsxConnector extends AbstractConnector
         return 'XLSX Connector';
     }
 
-    public function checkConfiguration(array $parameters = []): array
+    public function checkConfiguration(): array
     {
         $result = parent::checkConfiguration();
 
@@ -40,10 +40,9 @@ final class XlsxConnector extends AbstractConnector
     }
 
     /**
-     * @return mixed
      * @throws SourceErrorException
      */
-    protected function query(array $parameters = [])
+    protected function query(): mixed
     {
         $this->logger->info('Call parameters', $this->parameters);
         $this->validateConfiguration();
