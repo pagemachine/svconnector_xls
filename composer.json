@@ -12,7 +12,7 @@
     "require": {
         "php": "^8.2",
         "cobweb/svconnector": "^6.0",
-        "phpoffice/phpspreadsheet": "^2.0 || ^3.0 || ^4.0 || ^5.0",
+        "phpoffice/phpspreadsheet": "^5.0",
         "typo3/cms-core": "^12.4 || ^13.4"
     },
     "require-dev": {
@@ -81,26 +81,15 @@
         "php:style:lint": "php-cs-fixer fix --dry-run --diff",
         "php:syntax:lint": "parallel-lint --show-deprecated --exclude bin --exclude vendor --exclude web .",
         "php:unit:test": "phpunit --colors=always",
-        "ter:build:cleanup": [
-            "git reset --hard",
-            "git clean -xfd"
-        ],
         "ter:deploy": [
-            "@ter:build:cleanup",
-            "@ter:deploy:setup",
-            "@ter:vendors:build",
-            "@ter:deploy:upload"
-        ],
-        "ter:deploy:setup": [
-            "@composer global require clue/phar-composer typo3/tailor"
-        ],
-        "ter:deploy:upload": [
-            "composer global exec -v -- tailor ter:publish --comment \"$(git tag -l --format='%(contents)' $TAG)\" $TAG"
-        ],
-        "ter:vendors:build": [
-            "(mkdir -p /tmp/vendors && cd /tmp/vendors && composer require phpoffice/phpspreadsheet:^2.0 && composer global exec phar-composer build -v)",
+            "git reset --hard",
+            "git clean -xfd",
+            "@composer global require clue/phar-composer typo3/tailor",
+            "(mkdir -p /tmp/vendors && cp ter-composer.json /tmp/vendors/composer.json && cd /tmp/vendors && composer install && composer global exec phar-composer build -v)",
             "cp /tmp/vendors/vendors.phar .",
-            "echo \"require 'phar://' . \\TYPO3\\CMS\\Core\\Utility\\ExtensionManagementUtility::extPath('$(composer config extra.typo3/cms.extension-key)') . 'vendors.phar/vendor/autoload.php';\" >> ext_localconf.php"
+            "echo \"require 'phar://' . \\TYPO3\\CMS\\Core\\Utility\\ExtensionManagementUtility::extPath('$(composer config extra.typo3/cms.extension-key)') . 'vendors.phar/vendor/autoload.php';\" >> ext_localconf.php",
+            "composer global exec -v -- tailor set-version $TAG",
+            "composer global exec -v -- tailor ter:publish --comment \"See release at https://github.com/pagemachine/svconnector_xls/releases/tag/$TAG\" $TAG"
         ],
         "test": [
             "@php:unit:test",
