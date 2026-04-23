@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "cobweb/svconnector": "^6.0",
+        "cobweb/svconnector": "^7.0",
         "phpoffice/phpspreadsheet": "^5.0",
         "typo3/cms-core": "^13.4"
     },

@@ -18,10 +18,7 @@ abstract class AbstractConnector extends ConnectorBase
         return true;
     }
 
-    /**
-     * @return mixed
-     */
-    public function fetchRaw(array $parameters = [])
+    public function fetchRaw(): mixed
     {
         $result = $this->query();
 
@@ -36,7 +33,7 @@ abstract class AbstractConnector extends ConnectorBase
         return $result;
     }
 
-    public function fetchArray(array $parameters = []): array
+    public function fetchArray(): array
     {
         $headers = [];
         $data = [];
@@ -74,7 +71,7 @@ abstract class AbstractConnector extends ConnectorBase
         return $data;
     }
 
-    public function fetchXML(array $parameters = []): string
+    public function fetchXML(): string
     {
         // Get the data as an array
         $result = $this->fetchArray();

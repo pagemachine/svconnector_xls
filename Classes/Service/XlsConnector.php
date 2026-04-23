@@ -23,7 +23,7 @@ final class XlsConnector extends AbstractConnector
         return 'XLS Connector';
     }
 
-    public function checkConfiguration(array $parameters = []): array
+    public function checkConfiguration(): array
     {
         $result = parent::checkConfiguration();
 
@@ -39,10 +39,7 @@ final class XlsConnector extends AbstractConnector
         return $result;
     }
 
-    /**
-     * @return mixed
-     */
-    protected function query(array $parameters = [])
+    protected function query(): mixed
     {
         $this->logger->info('Call parameters', $this->parameters);
         $this->validateConfiguration();
