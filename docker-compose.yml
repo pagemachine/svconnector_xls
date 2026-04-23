@@ -4,7 +4,7 @@ services:
     environment:
       PHP_EXTENSIONS: gd intl
       TAG:
-      TYPO3_VERSION: ${TYPO3_VERSION:-^11.5}
+      TYPO3_VERSION: ${TYPO3_VERSION:-^13.4}
       TYPO3_API_TOKEN:
       TYPO3_API_PASSWORD:
       TYPO3_API_USERNAME:
